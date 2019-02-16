@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Micro Forum</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap-theme.min.css" integrity="sha384-jzngWsPS6op3fgRCDTESqrEJwRKck+CILhJVO5VvaAZCq8JYf8HsR/HPpBOOPZfR" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" integrity="sha384-vhJnz1OVIdLktyixHY4Uk3OHEwdQqPppqYR8+5mjsauETgLOcEynD9oPHhhz18Nw" crossorigin="anonymous"></script>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Secular+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Play" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
+
+
+    <!-- Master Css -->
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+
+
+  </head>
+  <body>
+
+    <nav class='navbar fixed-top mynav' role='navigation' id='navbar' style="background-color: #b2b2b2;">
+
+      <div class="container">
+
+        <ul class='nav navbar-nav' >
+            <li><a class='navbar-brand' id="bigbrand" href="{% url 'home' %}">Micro Forum</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+            <li><a id='navft' href="{% url 'posts:for_user' username=user.username %}">My Posts</a></li>
+            <li><a id='navft' href="{% url 'posts:create' %}">New Reply</a></li>
+            <li><a id='navft' href="{% url 'groups:all' %}">Threads</a></li>
+            <li><a id='navft' href="{% url 'groups:create' %}">New Thread</a></li>
+            <li><a id='navft' href="{% url 'accounts:logout' %}">Log Out</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav">
+          {% else %}
+            <li><a href="{% url 'groups:all' %}">Threads</a></li>
+            <li><a href="{% url 'accounts:login' %}">Log In</a></li>
+            <li><a href="{% url 'accounts:signup'%}">Sign Up</a></li>
+        </ul>
+          {% endif %}
+
+
+      </div>
+
+    </nav>
+
+    <div class="container mycontent">
+
+      {% block content %}
+
+
+      {% endblock %}
+
+    </div>
+
+  </body>
+  <script type="text/javascript" src="{% static 'minisocialsite/js/master.js' %}">
+
+  </script>
+</html>

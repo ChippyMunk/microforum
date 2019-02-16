@@ -1,0 +1,34 @@
+{% extends "groups/group_base.html" %}
+{% block pregroup %}
+
+<h1>{{group.name}}</h1>
+<h2>Follower: {{group.members.count}} &nbsp&nbsp&nbsp&nbsp Reply: {{group.posts.count}}</h2>
+
+<div class="content">
+  {% if user in group.members.all %}
+    <a href="{% url 'groups:leave' slug=group.slug %}" class = 'btn btn-lg btn-primary'><span class = 'glyphicon glyphicon-remove-circle'></span>&nbsp Unfollow</a>
+
+  {% else %}
+  <a href="{% url 'groups:join' slug=group.slug %}" class = 'btn btn-lg btn-default'><span class = 'glyphicon glyphicon-ok-circle'></span>&nbsp Follow</a>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}
+
+
+{% block group_content %}
+<div class="col-md-8">
+  {% if group.posts.count == 0 %}
+    <h2>No replies in this thread yet!</h2>
+
+  {% else %}
+    {% for post in group.posts.all %}
+      {% include "posts/_post.html" %}
+    {% endfor %}
+  {% endif %}
+
+</div>
+
+{% endblock %}
